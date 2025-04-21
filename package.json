@@ -1,0 +1,24 @@
+{
+  "name": "graphql-proposal-service",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/patricksoe/graphql-proposal-service#readme",
+  "bugs": {
+    "url": "https://github.com/patricksoe/graphql-proposal-service/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/patricksoe/graphql-proposal-service.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "apollo-server": "^3.13.0",
+    "graphql": "^16.10.0"
+  }
+}
