@@ -1,4 +1,9 @@
 import prisma from "../../lib/prisma";
+import {
+  CreateProposalArgs,
+  UpdateProposalArgs,
+  DeleteProposalArgs,
+} from "./types";
 
 const proposalResolvers = {
   Query: {
@@ -13,22 +18,25 @@ const proposalResolvers = {
   },
 
   Mutation: {
-    createProposal: async (_: any, { input }: any) => {
+    createProposal: async (_: any, { input: { name } }: CreateProposalArgs) => {
       return await prisma.proposal.create({
         data: {
-          name: input.name,
+          name: name,
         },
       });
     },
-    updateProposal: async (_: any, { id, input }: any) => {
+    updateProposal: async (
+      _: any,
+      { id, input: { name } }: UpdateProposalArgs
+    ) => {
       return await prisma.proposal.update({
         where: { id: parseInt(id) },
         data: {
-          name: input.name,
+          name: name,
         },
       });
     },
-    deleteProposal: async (_: any, { id }: any) => {
+    deleteProposal: async (_: any, { id }: DeleteProposalArgs) => {
       return await prisma.proposal.delete({
         where: { id: parseInt(id) },
       });
