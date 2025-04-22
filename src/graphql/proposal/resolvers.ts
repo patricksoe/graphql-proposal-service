@@ -28,6 +28,11 @@ const proposalResolvers = {
         },
       });
     },
+    deleteProposal: async (_: any, { id }: any) => {
+      return await prisma.proposal.delete({
+        where: { id: parseInt(id) },
+      });
+    },
   },
 };
 
