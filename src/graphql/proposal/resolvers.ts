@@ -13,6 +13,9 @@ const proposalResolvers = {
     proposal: async (_: any, { id }: { id: number }) => {
       return await prisma.proposal.findUnique({
         where: { id },
+        include: {
+          steps: true,
+        },
       });
     },
   },

@@ -2,6 +2,7 @@ const typeDefs = `#graphql
   type Proposal {
     id: ID!
     name: String!
+    steps: [Step!]!
     createdAt: String!
     updatedAt: String!
   }
