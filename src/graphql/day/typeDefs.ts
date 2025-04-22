@@ -1,4 +1,4 @@
-const typeDefs = `
+const typeDefs = `#graphql
   type Day {
     id: ID!
     order: Int!

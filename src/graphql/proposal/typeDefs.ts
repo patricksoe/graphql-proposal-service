@@ -1,11 +1,22 @@
-const typeDefs = `
+const typeDefs = `#graphql
   type Proposal {
     id: ID!
     name: String!
-    days: [Day!]!
-    steps: [Step!]!
     createdAt: String!
     updatedAt: String!
+  }
+
+  input ProposalInput {
+    name: String!
+  }
+
+  type Query {
+    proposals: [Proposal!]!
+    proposal(id: Int!): Proposal
+  }
+
+  type Mutation {
+    createProposal(input: ProposalInput!): Proposal!
   }
 `;
 

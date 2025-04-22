@@ -1,4 +1,4 @@
-const typeDefs = `
+const typeDefs = `#graphql
   type Step {
     id: ID!
     order: Int!

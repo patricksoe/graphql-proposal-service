@@ -2,26 +2,17 @@ import proposalTypeDefs from "./proposal/typeDefs";
 import dayTypeDefs from "./day/typeDefs";
 import stepTypeDefs from "./step/typeDefs";
 
-const rootTypeDefs = `
-  scalar Date
+import proposalResolvers from "./proposal/resolvers";
 
-  type Query {
-    _: Boolean
-    hello: String
-  }
-
-  type Mutation {
-    _: Boolean
-  }
-`;
-
-const typeDefs = [rootTypeDefs, proposalTypeDefs, dayTypeDefs, stepTypeDefs];
+const typeDefs = [proposalTypeDefs, dayTypeDefs, stepTypeDefs];
 
 const resolvers = {
   Query: {
-    hello: () => "Hello world!",
+    ...proposalResolvers.Query,
   },
-  Mutation: {},
+  Mutation: {
+    ...proposalResolvers.Mutation,
+  },
 };
 
 export { typeDefs, resolvers };
