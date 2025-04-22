@@ -14,13 +14,19 @@ const proposalResolvers = {
 
   Mutation: {
     createProposal: async (_: any, { input }: any) => {
-      console.log(input);
-      const newProposal = await prisma.proposal.create({
+      return await prisma.proposal.create({
         data: {
           name: input.name,
         },
       });
-      return newProposal;
+    },
+    updateProposal: async (_: any, { id, input }: any) => {
+      return await prisma.proposal.update({
+        where: { id: parseInt(id) },
+        data: {
+          name: input.name,
+        },
+      });
     },
   },
 };

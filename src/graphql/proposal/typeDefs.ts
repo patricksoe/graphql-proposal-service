@@ -17,6 +17,7 @@ const typeDefs = `#graphql
 
   type Mutation {
     createProposal(input: ProposalInput!): Proposal!
+    updateProposal(id: ID!, input: ProposalInput!): Proposal!
   }
 `;
 
