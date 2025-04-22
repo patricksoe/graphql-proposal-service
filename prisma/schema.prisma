@@ -10,7 +10,31 @@ datasource db {
 model Proposal {
   id        Int      @id @default(autoincrement())
   name      String
+  days      Day[]
+  steps     Step[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
+model Day {
+  id         Int      @id @default(autoincrement())
+  order      Int
+  name       String
+  proposal   Proposal @relation(fields: [proposalId], references: [id])
+  proposalId Int
+  step       Step     @relation(fields: [stepId], references: [id])
+  stepId     Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Step {
+  id         Int      @id @default(autoincrement())
+  order      Int
+  name       String
+  proposal   Proposal @relation(fields: [proposalId], references: [id])
+  proposalId Int
+  days       Day[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
