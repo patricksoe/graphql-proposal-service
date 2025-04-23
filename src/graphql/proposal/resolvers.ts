@@ -8,13 +8,19 @@ import {
 const proposalResolvers = {
   Query: {
     proposals: async () => {
-      return await prisma.proposal.findMany();
+      return await prisma.proposal.findMany({
+        include: {
+          steps: true,
+          days: true,
+        },
+      });
     },
     proposal: async (_: any, { id }: { id: number }) => {
       return await prisma.proposal.findUnique({
         where: { id },
         include: {
           steps: true,
+          days: true,
         },
       });
     },

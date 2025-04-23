@@ -2,7 +2,12 @@ import prisma from "../../lib/prisma";
 
 export const stepResolvers = {
   Query: {
-    steps: async () => await prisma.step.findMany(),
+    steps: async () =>
+      await prisma.step.findMany({
+        include: {
+          days: true,
+        },
+      }),
     step: async (_: any, { id }: { id: string }) =>
       await prisma.step.findUnique({ where: { id: parseInt(id) } }),
   },

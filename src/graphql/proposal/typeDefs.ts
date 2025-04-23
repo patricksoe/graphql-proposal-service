@@ -3,6 +3,7 @@ const typeDefs = `#graphql
     id: ID!
     name: String!
     steps: [Step!]!
+    days: [Day!]!
     createdAt: String!
     updatedAt: String!
   }
