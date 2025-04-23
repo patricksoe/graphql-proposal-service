@@ -1,4 +1,9 @@
 import prisma from "../../lib/prisma";
+import {
+  CreateDayArgs,
+  UpdateDayArgs,
+  DeleteDayArgs,
+} from "./types";
 
 const dayResolvers = {
   Query: {
@@ -12,7 +17,7 @@ const dayResolvers = {
     },
   },
   Mutation: {
-    createDay: async (_: any, { input }: any) => {
+    createDay: async (_: any, { input }: CreateDayArgs) => {
       return await prisma.day.create({
         data: {
           order: input.order,
@@ -22,7 +27,7 @@ const dayResolvers = {
         },
       });
     },
-    updateDay: async (_: any, { id, input }: any) => {
+    updateDay: async (_: any, { id, input }: UpdateDayArgs) => {
       return await prisma.day.update({
         where: { id: parseInt(id) },
         data: {
@@ -33,7 +38,7 @@ const dayResolvers = {
         },
       });
     },
-    deleteDay: async (_: any, { id }: any) => {
+    deleteDay: async (_: any, { id }: DeleteDayArgs) => {
       return await prisma.day.delete({
         where: { id: parseInt(id) },
       });
