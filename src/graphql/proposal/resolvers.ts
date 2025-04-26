@@ -17,7 +17,7 @@ const proposalResolvers = {
         });
       } catch (error) {
         console.error("Error fetching proposals:", error);
-        throw new Error("Failed to fetch proposals.");
+        throw new Error("Failed to fetch proposals");
       }
     },
     proposal: async (_: any, { id }: { id: number }) => {
@@ -31,13 +31,13 @@ const proposalResolvers = {
         });
 
         if (!proposal) {
-          throw new Error("Proposal not found.");
+          throw new Error("Proposal not found");
         }
 
         return proposal;
       } catch (error) {
         console.error("Error fetching proposal:", error);
-        throw new Error("Failed to fetch proposal.");
+        throw new Error("Failed to fetch proposal");
       }
     },
   },
@@ -88,7 +88,7 @@ const proposalResolvers = {
         return result;
       } catch (error) {
         console.error("Error creating proposal:", error);
-        throw new Error("Failed to create proposal. Please try again.");
+        throw new Error("Failed to create proposal. Please try again");
       }
     },
     updateProposal: async (
@@ -104,7 +104,7 @@ const proposalResolvers = {
         });
       } catch (error) {
         console.error("Error updating proposal:", error);
-        throw new Error("Failed to update proposal.");
+        throw new Error("Failed to update proposal");
       }
     },
     deleteProposal: async (_: any, { id }: DeleteProposalArgs) => {
@@ -114,7 +114,7 @@ const proposalResolvers = {
         });
       } catch (error) {
         console.error("Error deleting proposal:", error);
-        throw new Error("Failed to delete proposal.");
+        throw new Error("Failed to delete proposal");
       }
     },
   },
