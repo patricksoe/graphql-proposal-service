@@ -8,6 +8,7 @@ import { typeDefs, resolvers } from "./graphql";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
   plugins: [ApolloServerPluginLandingPageLocalDefault()],
 });
 
