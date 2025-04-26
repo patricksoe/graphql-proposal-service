@@ -72,9 +72,8 @@ const dayResolvers = {
             where: { id: dayId },
           });
 
-          const stepId = dayToDelete.stepId;
           const remainingDays = await tx.day.findMany({
-            where: { stepId },
+            where: { stepId: dayToDelete.stepId },
             orderBy: { order: "asc" },
           });
 

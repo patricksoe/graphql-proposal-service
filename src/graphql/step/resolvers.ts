@@ -1,7 +1,7 @@
 import prisma from "../../lib/prisma";
 import { CreateStepArgs, UpdateStepArgs, DeleteStepArgs } from "./types";
 
-export const stepResolvers = {
+const stepResolvers = {
   Query: {
     steps: async () => {
       try {
@@ -38,7 +38,9 @@ export const stepResolvers = {
   Mutation: {
     createStep: async (_: any, { input }: CreateStepArgs) => {
       try {
-        return await prisma.step.create({ data: input });
+        return await prisma.step.create({
+          data: input,
+        });
       } catch (error) {
         console.error("Error creating step:", error);
         throw new Error("Failed to create step");
@@ -58,17 +60,19 @@ export const stepResolvers = {
     deleteStep: async (_: any, { id }: DeleteStepArgs) => {
       try {
         const result = await prisma.$transaction(async (tx) => {
+          const stepId = parseInt(id);
+
           await tx.day.deleteMany({
-            where: { stepId: parseInt(id) },
+            where: { stepId },
           });
-    
+
           const deletedStep = await tx.step.delete({
-            where: { id: parseInt(id) },
+            where: { id: stepId },
           });
-    
+
           return deletedStep;
         });
-    
+
         return result;
       } catch (error) {
         console.error("Error deleting step:", error);

@@ -65,26 +65,27 @@ const proposalResolvers = {
               },
             });
 
-            for (const dayInput of stepInput.days) {
-              await tx.day.create({
-                data: {
-                  name: dayInput.name,
-                  order: dayInput.order,
-                  proposalId: proposal.id,
-                  stepId: step.id,
-                },
-              });
+            if (stepInput.days?.length) {
+              await Promise.all(
+                stepInput.days.map((dayInput) =>
+                  tx.day.create({
+                    data: {
+                      name: dayInput.name,
+                      order: dayInput.order,
+                      proposalId: proposal.id,
+                      stepId: step.id,
+                    },
+                  })
+                )
+              );
             }
           }
 
           return tx.proposal.findUnique({
             where: { id: proposal.id },
             include: {
-              steps: {
-                include: {
-                  days: true,
-                },
-              },
+              steps: true,
+              days: true,
             },
           });
         });
