@@ -26,6 +26,8 @@ model Day {
   stepId     Int
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  @@unique([proposalId, stepId, order])
 }
 
 model Step {
@@ -37,4 +39,6 @@ model Step {
   days       Day[]
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
+  @@unique([proposalId, order])
 }
