@@ -1,5 +1,6 @@
 import prisma from "../../lib/prisma";
 import {
+  ProposalsSortArgs,
   CreateProposalArgs,
   UpdateProposalArgs,
   DeleteProposalArgs,
@@ -7,13 +8,13 @@ import {
 
 const proposalResolvers = {
   Query: {
-    proposals: async () => {
+    proposals: async (_: any, { sort }: { sort?: ProposalsSortArgs }) => {
       try {
         return await prisma.proposal.findMany({
-          include: {
-            steps: true,
-            days: true,
-          },
+          orderBy: sort
+            ? { [sort.field === "NAME" ? "name" : "createdAt"]: sort.direction }
+            : { createdAt: "desc" },
+          include: { steps: true, days: true },
         });
       } catch (error) {
         console.error("Error fetching proposals:", error);

@@ -3,10 +3,15 @@ interface DayInput {
   name: string;
 }
 
-export interface StepInput {
+interface StepInput {
   order: number;
   name: string;
   days?: DayInput[];
+}
+
+export interface ProposalsSortArgs {
+  field: "CREATED_AT" | "NAME";
+  direction: "asc" | "desc";
 }
 
 export interface ProposalInput {

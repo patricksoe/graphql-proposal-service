@@ -1,4 +1,19 @@
 const typeDefs = `#graphql
+  enum ProposalSortField {
+    CREATED_AT
+    NAME
+  }
+
+  enum SortDirection {
+    asc
+    desc
+  }
+
+  input ProposalSort {
+    field: ProposalSortField!
+    direction: SortDirection! = desc
+  }
+
   type Proposal {
     id: ID!
     name: String!
@@ -14,7 +29,7 @@ const typeDefs = `#graphql
   }
 
   type Query {
-    proposals: [Proposal!]!
+    proposals(sort: ProposalSort): [Proposal!]!
     proposal(id: Int!): Proposal
   }
 
