@@ -1,7 +1,12 @@
+export interface DayInput {
+  order: number;
+  name: string;
+}
+
 export interface StepInput {
   order: number;
   name: string;
-  proposalId: number;
+  days?: DayInput[];
 }
 
 export interface CreateStepArgs {

@@ -43,7 +43,7 @@ const proposalResolvers = {
   },
 
   Mutation: {
-    createProposal: async (_: any, { input }: any) => {
+    createProposal: async (_: any, { input }: CreateProposalArgs) => {
       try {
         const { name, steps } = input;
 
@@ -119,14 +119,14 @@ const proposalResolvers = {
           await tx.day.deleteMany({
             where: {
               step: {
-                proposalId: proposalId,
+                proposalId,
               },
             },
           });
 
           await tx.step.deleteMany({
             where: {
-              proposalId: proposalId,
+              proposalId,
             },
           });
 
