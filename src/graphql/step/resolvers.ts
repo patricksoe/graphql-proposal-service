@@ -7,7 +7,11 @@ const stepResolvers = {
       try {
         return await prisma.step.findMany({
           include: {
-            days: true,
+            days: {
+              orderBy: [
+                { order: "asc" }
+              ]
+            },
           },
         });
       } catch (error) {
@@ -20,7 +24,11 @@ const stepResolvers = {
         const step = await prisma.step.findUnique({
           where: { id: parseInt(id) },
           include: {
-            days: true,
+            days: {
+              orderBy: [
+                { order: "asc" }
+              ]
+            },
           },
         });
 

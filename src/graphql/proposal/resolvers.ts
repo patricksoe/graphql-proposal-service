@@ -28,7 +28,19 @@ const proposalResolvers = {
           orderBy: sort
             ? { [sort.field === "NAME" ? "name" : "createdAt"]: sort.direction }
             : { createdAt: "desc" },
-          include: { steps: true, days: true },
+          include: {
+            steps: {
+              orderBy: { order: "asc" },
+              include: {
+                days: {
+                  orderBy: { order: "asc" },
+                },
+              },
+            },
+            days: {
+              orderBy: [{ stepId: "asc" }, { order: "asc" }],
+            },
+          },
         });
       } catch (error) {
         console.error("Error fetching proposals:", error);
@@ -40,8 +52,17 @@ const proposalResolvers = {
         const proposal = await prisma.proposal.findUnique({
           where: { id },
           include: {
-            steps: true,
-            days: true,
+            steps: {
+              orderBy: { order: "asc" },
+              include: {
+                days: {
+                  orderBy: { order: "asc" },
+                },
+              },
+            },
+            days: {
+              orderBy: [{ stepId: "asc" }, { order: "asc" }],
+            },
           },
         });
 
@@ -99,8 +120,15 @@ const proposalResolvers = {
           return tx.proposal.findUnique({
             where: { id: proposal.id },
             include: {
-              steps: true,
-              days: true,
+              steps: {
+                orderBy: { order: "asc" },
+                include: {
+                  days: {
+                    orderBy: { order: "asc" },
+                  },
+                },
+              },
+              days: { orderBy: [{ stepId: "asc" }, { order: "asc" }] },
             },
           });
         });
