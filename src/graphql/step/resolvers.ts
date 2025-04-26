@@ -61,13 +61,27 @@ const stepResolvers = {
       try {
         const result = await prisma.$transaction(async (tx) => {
           const stepId = parseInt(id);
-
           await tx.day.deleteMany({
             where: { stepId },
           });
 
           const deletedStep = await tx.step.delete({
             where: { id: stepId },
+          });
+
+          const { order, proposalId } = deletedStep;
+          await tx.step.updateMany({
+            where: {
+              proposalId,
+              order: {
+                gt: order,
+              },
+            },
+            data: {
+              order: {
+                decrement: 1,
+              },
+            },
           });
 
           return deletedStep;

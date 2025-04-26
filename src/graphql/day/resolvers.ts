@@ -64,29 +64,26 @@ const dayResolvers = {
       try {
         const result = await prisma.$transaction(async (tx) => {
           const dayId = parseInt(id);
-          const dayToDelete = await tx.day.findUniqueOrThrow({
+          const deletedDay = await tx.day.delete({
             where: { id: dayId },
           });
 
-          await tx.day.delete({
-            where: { id: dayId },
+          const { order, stepId } = deletedDay;
+          await tx.day.updateMany({
+            where: {
+              stepId,
+              order: {
+                gt: order,
+              },
+            },
+            data: {
+              order: {
+                decrement: 1,
+              },
+            },
           });
 
-          const remainingDays = await tx.day.findMany({
-            where: { stepId: dayToDelete.stepId },
-            orderBy: { order: "asc" },
-          });
-
-          await Promise.all(
-            remainingDays.map((day, index) =>
-              tx.day.update({
-                where: { id: day.id },
-                data: { order: index + 1 },
-              })
-            )
-          );
-
-          return dayToDelete;
+          return deletedDay;
         });
 
         return result;
