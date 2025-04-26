@@ -12,8 +12,8 @@ export const typeDefs = `#graphql
   input DayInput {
     order: Int!
     name: String!
-    proposalId: Int!
-    stepId: Int!
+    proposalId: Int
+    stepId: Int
   }
 
   type Query {

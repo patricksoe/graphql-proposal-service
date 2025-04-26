@@ -12,7 +12,8 @@ const typeDefs = `#graphql
   input StepInput {
     name: String!
     order: Int!
-    proposalId: Int!
+    proposalId: Int
+    days: [DayInput!]
   }
 
   type Query {

@@ -10,6 +10,7 @@ const typeDefs = `#graphql
 
   input ProposalInput {
     name: String!
+    steps: [StepInput!]
   }
 
   type Query {
