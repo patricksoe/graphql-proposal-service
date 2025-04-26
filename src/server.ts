@@ -1,6 +1,6 @@
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { ApolloServerPluginLandingPageGraphQLPlayground } from "@apollo/server/plugin/landingPage/graphqlPlayground";
+import { ApolloServerPluginLandingPageLocalDefault  } from "@apollo/server/plugin/landingPage/default";
 import "dotenv/config";
 
 import { typeDefs, resolvers } from "./graphql";
@@ -8,7 +8,7 @@ import { typeDefs, resolvers } from "./graphql";
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground()],
+  plugins: [ApolloServerPluginLandingPageLocalDefault()],
 });
 
 const start = async () => {
