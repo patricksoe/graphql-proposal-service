@@ -52,6 +52,10 @@ const proposalResolvers = {
             data: { name },
           });
 
+          if (!steps?.length) {
+            return proposal;
+          }
+
           for (const stepInput of steps) {
             const step = await tx.step.create({
               data: {
@@ -109,9 +113,31 @@ const proposalResolvers = {
     },
     deleteProposal: async (_: any, { id }: DeleteProposalArgs) => {
       try {
-        return await prisma.proposal.delete({
-          where: { id: parseInt(id) },
+        const result = await prisma.$transaction(async (tx) => {
+          const proposalId = parseInt(id);
+
+          await tx.day.deleteMany({
+            where: {
+              step: {
+                proposalId: proposalId,
+              },
+            },
+          });
+
+          await tx.step.deleteMany({
+            where: {
+              proposalId: proposalId,
+            },
+          });
+
+          const deletedProposal = await tx.proposal.delete({
+            where: { id: proposalId },
+          });
+
+          return deletedProposal;
         });
+
+        return result;
       } catch (error) {
         console.error("Error deleting proposal:", error);
         throw new Error("Failed to delete proposal");
