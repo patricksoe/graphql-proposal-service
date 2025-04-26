@@ -57,9 +57,19 @@ export const stepResolvers = {
     },
     deleteStep: async (_: any, { id }: DeleteStepArgs) => {
       try {
-        return await prisma.step.delete({
-          where: { id: parseInt(id) },
+        const result = await prisma.$transaction(async (tx) => {
+          await tx.day.deleteMany({
+            where: { stepId: parseInt(id) },
+          });
+    
+          const deletedStep = await tx.step.delete({
+            where: { id: parseInt(id) },
+          });
+    
+          return deletedStep;
         });
+    
+        return result;
       } catch (error) {
         console.error("Error deleting step:", error);
         throw new Error("Failed to delete step");
