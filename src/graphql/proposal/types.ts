@@ -14,6 +14,10 @@ export interface ProposalsSortArgs {
   direction: "asc" | "desc";
 }
 
+export interface ProposalFilterArg {
+  nameContains: string;
+}
+
 export interface ProposalInput {
   name: string;
   steps?: StepInput[];

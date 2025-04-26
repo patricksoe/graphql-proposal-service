@@ -14,6 +14,10 @@ const typeDefs = `#graphql
     direction: SortDirection! = desc
   }
 
+  input ProposalFilter {
+    nameContains: String
+  }
+
   type Proposal {
     id: ID!
     name: String!
@@ -29,7 +33,7 @@ const typeDefs = `#graphql
   }
 
   type Query {
-    proposals(sort: ProposalSort): [Proposal!]!
+    proposals(sort: ProposalSort, filter: ProposalFilter): [Proposal!]!
     proposal(id: Int!): Proposal
   }
 

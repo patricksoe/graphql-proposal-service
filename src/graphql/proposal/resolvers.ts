@@ -1,6 +1,7 @@
 import prisma from "../../lib/prisma";
 import {
   ProposalsSortArgs,
+  ProposalFilterArg,
   CreateProposalArgs,
   UpdateProposalArgs,
   DeleteProposalArgs,
@@ -8,9 +9,22 @@ import {
 
 const proposalResolvers = {
   Query: {
-    proposals: async (_: any, { sort }: { sort?: ProposalsSortArgs }) => {
+    proposals: async (
+      _: any,
+      { sort, filter }: { sort?: ProposalsSortArgs; filter?: ProposalFilterArg }
+    ) => {
       try {
+        const where: any = {};
+
+        if (filter?.nameContains) {
+          where.name = {
+            contains: filter.nameContains,
+            mode: "insensitive",
+          };
+        }
+
         return await prisma.proposal.findMany({
+          where,
           orderBy: sort
             ? { [sort.field === "NAME" ? "name" : "createdAt"]: sort.direction }
             : { createdAt: "desc" },
